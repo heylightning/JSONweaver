@@ -1,13 +1,17 @@
 #![allow(non_snake_case)]
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
+#[macro_use] 
+extern crate rocket;
+extern crate rocket_cors;
 
 mod organization;
 
 use std::error::Error;
 use csv;
 use organization::fill_json;
+
+use rocket_cors::{ CorsOptions, AllowedOrigins };
 
 #[get("/")]
 fn jsonweaver() -> String {
@@ -39,5 +43,10 @@ fn read_from_file(path: &str) -> Result<Vec<Vec<String>>, Box<dyn Error>> {
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![jsonweaver]).launch();
+
+    let cors = CorsOptions::default()
+        .allowed_origins(AllowedOrigins::all())
+        .to_cors().unwrap();
+
+    rocket::ignite().mount("/", routes![jsonweaver]).attach(cors).launch();
 }
