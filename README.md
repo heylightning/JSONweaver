@@ -1,6 +1,63 @@
-# Description
+# Description 📄
 
 Convert your CSV data to JSON.
+
+JSONweaver will take your CSV data from your `.csv ` file convert it into JSON and then host it on ` http://localhost:8000/ ` using async web framework Rocket. 
+
+## Setup and run main.rs file: -
+1. Clone the repository:
+```
+git clone <repo-link>
+```
+2. Change directory:
+```
+cd JSONweaver
+```
+3. Put your csv file in ` /public `
+> Now, follow these further steps to add custom code for your own csv file. 🐾
+* Change the path and name of the csv file.
+```rust
+match read_from_file("./public/organizations.csv") {
+    Ok(main_array) => {
+        fill_json(main_array)
+    } Err(e) => e.to_string()
+}
+```
+* Change the ` Head struct ` in **/src/organization.rs** file according to your headers in csv file.
+```rust
+struct Head {
+    index: String, 
+    organization_id: String, 
+    name: String, 
+    website: String, 
+    country: String, 
+    description: String, 
+    founded: String, 
+    industry: String, 
+    number_of_employees: String,
+}
+```
+* Change the ` fill_json() method ` in **/src/organization.rs** file, again according to your headers in csv file.
+```rust
+let head: Head = Head {
+    index: format!("{}", content[0]),
+    organization_id: format!("{}", content[1]),
+    name: format!("{}", content[2]),
+    website: format!("{}", content[3]),
+    country: format!("{}", content[4]),
+    description: format!("{}", content[5]),
+    founded: format!("{}", content[6]),
+    industry: format!("{}", content[7]),
+    number_of_employees: format!("{}", content[8]), 
+};
+```
+4. Run the file using this command:
+```
+cargo run
+```
+> This command will host your JSON data to ` http://localhost:8000/ ` 
+
+*Note: These requirements are staged for version 0.1.0*
 
 ### LICENSE
 MIT License
