@@ -1,5 +1,7 @@
 # Description 📄
 
+*Note: This is branch v_0.1.1*
+
 Convert your CSV data to JSON.
 
 JSONweaver will take your CSV data from your `.csv ` file convert it into JSON and then host it on ` http://localhost:8000/ ` using async web framework Rocket. 
@@ -57,7 +59,7 @@ cargo run
 ```
 > This command will host your JSON data to ` http://localhost:8000/ ` 
 
-*Note: These requirements are staged for version 0.1.0*
+*Note: These requirements are staged for version 0.1.1*
 
 ### LICENSE
 MIT License
