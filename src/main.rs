@@ -8,15 +8,13 @@ mod organization;
 use std::error::Error;
 use csv;
 use organization::fill_json;
-use rocket::response::content::Json;
 
 #[get("/")]
-fn jsonweaver() -> Json<String> {
+fn jsonweaver() -> String {
     match read_from_file("./public/organizations.csv") {
         Ok(main_array) => {
-            let json = Json(fill_json(main_array));
-            json
-        } Err(e) => Json(e.to_string())
+            fill_json(main_array)
+        } Err(e) => e.to_string()
     }
 }
 
