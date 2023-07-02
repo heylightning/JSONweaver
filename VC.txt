@@ -1,0 +1,4 @@
+VERSION 0.1.0 => Intial Version (main)
+VERSION 0.1.1 => {
+    "feature": "Added some new functionality with rocket_cors dependency"
+} (v_0.1.1)
