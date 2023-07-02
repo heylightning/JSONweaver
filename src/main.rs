@@ -21,20 +21,18 @@ fn jsonweaver() -> String {
 fn read_from_file(path: &str) -> Result<Vec<Vec<String>>, Box<dyn Error>> {
     let mut reader = csv::Reader::from_path(path)?;
 
-    let mut header_array: Vec<Vec<String>> = Vec::new();
+    let mut header_array: Vec<Vec<String>> = Vec::new(); // for headers
     let mut main_array: Vec<Vec<String>> = Vec::new();
 
     let head = reader.headers()?;
     let listofheaders: Vec<String> = head.iter().map(|h| h.to_string()).collect();
 
-    header_array.push(listofheaders); 
-    println!("Headers: {:?}\n\n", header_array[0]);
+    header_array.push(listofheaders); // array of headers
 
     for result in reader.records() {
         let record = result?;
-
         let listofrecord: Vec<String> = record.iter().map(|s| s.to_string()).collect();
-
+        
         main_array.push(listofrecord);
     }
     Ok(main_array)
