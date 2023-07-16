@@ -1,20 +1,20 @@
 #![allow(non_snake_case)]
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
 
 mod organization;
 
-use std::error::Error;
 use csv;
 use organization::fill_json;
+use std::error::Error;
 
 #[get("/")]
 fn jsonweaver() -> String {
     match read_from_file("./public/organizations.csv") {
-        Ok(main_array) => {
-            fill_json(main_array)
-        } Err(e) => e.to_string()
+        Ok(main_array) => fill_json(main_array),
+        Err(e) => e.to_string(),
     }
 }
 
@@ -32,7 +32,7 @@ fn read_from_file(path: &str) -> Result<Vec<Vec<String>>, Box<dyn Error>> {
     for result in reader.records() {
         let record = result?;
         let listofrecord: Vec<String> = record.iter().map(|s| s.to_string()).collect();
-        
+
         main_array.push(listofrecord);
     }
     Ok(main_array)
